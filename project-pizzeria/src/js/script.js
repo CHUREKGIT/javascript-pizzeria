@@ -70,13 +70,13 @@
       const thisProduct = this;
       
       /* Generate HTML  */
-        const generateHtml = templates.menuProduct(thisProduct.data);
+      const generateHtml = templates.menuProduct(thisProduct.data);
 
       /* create element usting utils.createDOMFromHTML */
-        thisProduct.element = utils.createDOMFromHTML(generateHtml);
+      thisProduct.element = utils.createDOMFromHTML(generateHtml);
 
       /* find menu container */
-        const container = document.querySelector(select.containerOf.menu);
+      const container = document.querySelector(select.containerOf.menu);
 
       /* insert html into container*/
       container.appendChild(thisProduct.element);
@@ -90,13 +90,13 @@
 
     initMenu: function() {
 
-    const thisApp = this;
+      const thisApp = this;
 
-    console.log('this App Data', thisApp.data)
+      console.log('this App Data', thisApp.data);
     
-    for(let product in thisApp.data.products){
-      new Product(product, thisApp.data.products[product]);
-    }
+      for(let product in thisApp.data.products){
+        new Product(product, thisApp.data.products[product]);
+      }
       
     },
 
