@@ -95,6 +95,8 @@
       thisProduct.formInputs = thisProduct.form.querySelectorAll(select.all.formInputs);
       thisProduct.cartButton = thisProduct.element.querySelector(select.menuProduct.cartButton);
       thisProduct.priceElem = thisProduct.element.querySelector(select.menuProduct.priceElem);
+      thisProduct.imageWrapper = thisProduct.element.querySelector(select.menuProduct.imageWrapper);
+
     }
 
     initAccordion(){
@@ -159,16 +161,37 @@
           // determine option value, e.g. optionId = 'olives', option = { label: 'Olives', price: 2, default: true }
           const option = param.options[optionId];
 
+         
           // if optin is checked in form and is not default increase price
           if (formData[paramId].includes(optionId) && option['default'] != true ){
 
+            // increase price
             price = price + option['price'];
+
+            
 
           // if optin is not checked in form and is  default decrease price
           } else if (!formData[paramId].includes(optionId) && option['default'] == true){
 
+            //decrease price
             price = price - option['price'];
 
+          }
+
+          const imgSelector = thisProduct.imageWrapper.querySelector('.'+paramId+'-'+optionId);
+
+          //if img selector exist
+          if (imgSelector){
+
+            // if option is checked show img
+            if (formData[paramId].includes(optionId)){
+              imgSelector.classList.add(classNames.menuProduct.imageVisible);
+
+            // if not remove img
+            } else{
+              imgSelector.classList.remove(classNames.menuProduct.imageVisible);
+            }
+            
           }
               
         }
