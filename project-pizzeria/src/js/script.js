@@ -71,6 +71,11 @@
     cart: {
       defaultDeliveryFee: 20,
     },
+    db: {
+      url: '//localhost:3131',
+      products: 'products',
+      orders: 'orders',
+    }
   };
 
   const templates = {
@@ -425,6 +430,7 @@
       thisCart.dom.subtotalPrice = thisCart.dom.wrapper.querySelector(select.cart.subtotalPrice);
       thisCart.dom.totalPrice = thisCart.dom.wrapper.querySelectorAll(select.cart.totalPrice);
       thisCart.dom.totalNumber = thisCart.dom.wrapper.querySelector(select.cart.totalNumber);
+      thisCart.dom.form = thisCart.dom.wrapper.querySelector(select.cart.form);
 
     }
 
@@ -451,6 +457,17 @@
         thisCart.remove(event.detail.cartProduct);
       });
 
+      //orders listner
+      thisCart.dom.form.addEventListener('submit', function(event){
+
+        /* prevent default action for event */
+        event.preventDefault();
+
+        //
+        thisCart.sendOrder();
+
+      });
+
     }
 
     add(menuProduct){
@@ -460,15 +477,11 @@
       /* Generate HTML  */
       const generateHtml = templates.cartProduct(menuProduct);
 
-      console.log('Genereted HTML', generateHtml);
-
       /* create element usting utils.createDOMFromHTML */
       const generateDOM = utils.createDOMFromHTML(generateHtml);
 
       /* insert html into container*/
       thisCart.dom.productList.appendChild(generateDOM);
-
-      console.log(menuProduct);
 
       /* init CARTproduct class*/
       thisCart.products.push(new CartProduct(menuProduct, generateDOM));
@@ -527,6 +540,42 @@
       product.dom.wrapper.remove();
     }
 
+    sendOrder(){
+      const thisCart = this;
+
+      const url = settings.db.url + '/' + settings.db.orders;
+
+      //prepare payload object
+      const payload = {};
+
+      
+
+      payload.adress = thisCart.dom.form.elements['address'].value;
+      payload.phone = thisCart.dom.form.elements['phone'].value;
+      payload.totalPrice = thisCart.totalPrice;
+      payload.subtotalPrice = thisCart.dom.subtotalPrice.innerHTML;
+      payload.totalNumber = thisCart.dom.totalNumber.innerHTML;
+      payload.deliveryFee = thisCart.dom.deliveryFee.innerHTML;
+      payload.products = [];
+
+      for(let prod of thisCart.products) {
+        payload.products.push(prod.getData());
+      }
+
+
+      //Post because we want to post payloands
+      const options = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      };
+      
+      fetch(url, options);
+
+    }
+
   }
 
   class CartProduct {
@@ -544,10 +593,6 @@
       thisCartProduct.getElement(element);
       thisCartProduct.initAmountWidget();
       thisCartProduct.initActions();
-
-      
-
-      console.log(thisCartProduct);
     }
     getElement(element){
       const thisCartProduct = this;
@@ -628,7 +673,20 @@
       });
     }
 
+    getData(){
 
+      const thisCartProduct = this;
+
+      const cartProductOrder = {};
+
+      cartProductOrder.name = thisCartProduct.name;
+      cartProductOrder.id = thisCartProduct.id;
+      cartProductOrder.amount = thisCartProduct.amount;
+      cartProductOrder.params = thisCartProduct.params;
+      cartProductOrder.price = thisCartProduct.price;
+      cartProductOrder.priceSingle = thisCartProduct.priceSingle;
+
+    }
 
   }
 
@@ -639,7 +697,7 @@
       const thisApp = this;
     
       for(let product in thisApp.data.products){
-        new Product(product, thisApp.data.products[product]);
+        new Product(thisApp.data.products[product].id, thisApp.data.products[product]);
       }
       
     },
@@ -648,7 +706,24 @@
 
       const thisApp = this;
 
-      thisApp.data = dataSource;
+      thisApp.data = {};
+      const url = settings.db.url + '/' + settings.db.products;
+
+      fetch(url)
+        .then(function(rawResponse){
+          return rawResponse.json();
+        })
+        .then(function(parsedResponse){
+
+          //save parsedResponse as 
+
+          thisApp.data.products = parsedResponse;
+
+          // inint Menu
+
+          thisApp.initMenu(parsedResponse);
+        });
+
     },
 
     initCart: function(){
@@ -671,7 +746,6 @@
 
 
       thisApp.initData();
-      thisApp.initMenu();
       thisApp.initCart();
     },
   };
