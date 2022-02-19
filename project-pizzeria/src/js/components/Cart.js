@@ -85,6 +85,8 @@ class Cart {
     /* init CARTproduct class*/
     thisCart.products.push(new CartProduct(menuProduct, generateDOM));
 
+    console.log('Ten koszyk', thisCart.products);
+
     thisCart.update();
     
 
