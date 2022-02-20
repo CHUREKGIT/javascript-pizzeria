@@ -18,6 +18,7 @@ class CartProduct {
     thisCartProduct.initAmountWidget();
     thisCartProduct.initActions();
   }
+  
   getElement(element){
     const thisCartProduct = this;
     
