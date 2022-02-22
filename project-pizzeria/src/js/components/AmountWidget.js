@@ -26,12 +26,10 @@ class AmountWidget extends BaseWidget {
     && value >= settings.amountWidget.defaultMin 
     && value <= settings.amountWidget.defaultMax;
   }
-
   renderValue(){
     const thisWidget = this;
     thisWidget.dom.input.value = thisWidget.value;
   }
-
   initActions(){
     const thisWidget = this;
 
