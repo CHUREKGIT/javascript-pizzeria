@@ -6,7 +6,6 @@ class BaseWidget {
 
     thisWidget.dom.wrapper = wrapperElement;
     thisWidget.correctValue = initialValue;
-     
   }
 
   get value(){
@@ -32,7 +31,7 @@ class BaseWidget {
   setValue(value){
     const thisWidget = this;
 
-    thisWidget.value = value;
+    thisWidget.correctValue = value;
 
   }
 
@@ -46,7 +45,7 @@ class BaseWidget {
 
   renderValue(){
     const thisWidget = this;
-    thisWidget.dom.wrapper.innerHTHML = thisWidget.value;
+    thisWidget.dom.wrapper.innerHTHML = thisWidget.correctValue;
   }
   announce(){
     const thisWidget = this;
