@@ -46,7 +46,6 @@ class Booking{
       eventsRepeat:  settings.db.url + '/' +settings.db.event + '?'+ params.eventsRepeat.join('&')
 
     };
-    //console.log(urls);
 
     Promise.all([
       fetch(urls.booking),
@@ -75,8 +74,6 @@ class Booking{
     const thisBooking = this;
 
     thisBooking.booked = {};
-
-    //console.log(events);
 
     for(let item of bookings){
       thisBooking.makeBooked(item.date, item.hour, item.duration, item.table);
@@ -150,6 +147,8 @@ class Booking{
 
     thisBooking.dom.tables = thisBooking.dom.wrapper.querySelectorAll(select.booking.tables);
 
+    //console.log(thisBooking.dom.tables);
+
   }
 
   initWidgets(){
@@ -179,11 +178,18 @@ class Booking{
     });
 
     //listener for change tables
-
     thisBooking.dom.wrapper.addEventListener('updated', function(){
       thisBooking.updateDom();
     });
 
+    for (let table of thisBooking.dom.tables){
+      //Listener for tables click
+      table.addEventListener('click', function(){
+        thisBooking.pickTable(table);
+      });
+    };
+    
+    
      
 
   }
@@ -191,7 +197,6 @@ class Booking{
   updateDom(){
 
     const thisBooking = this;
-
 
     thisBooking.date = thisBooking.dateWidget.value;
     thisBooking.hour = utils.hourToNumber(thisBooking.hourPicker.value);
@@ -217,11 +222,24 @@ class Booking{
         thisBooking.booked[thisBooking.date][thisBooking.hour].includes(tableId)
       ){
         table.classList.add(classNames.booking.tableBooked);
+      } else {
+        table.classList.remove(classNames.booking.tableBooked);
       }
+      table.classList.remove(classNames.table.active);
     }
+  }
 
+  pickTable(table){
+    const thisBooking = this;
 
-
+    for (let tb of thisBooking.dom.tables){
+      tb.classList.remove(classNames.table.active);
+    }
+    if (!table.classList.contains(classNames.booking.tableBooked)) {
+      table.classList.toggle(classNames.table.active);
+    }else{
+      alert('This table is reserved!');
+    }
   }
 
 }

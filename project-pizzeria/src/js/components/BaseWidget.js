@@ -17,7 +17,7 @@ class BaseWidget {
   set value(value){
     const thisWidget = this;
 
-    const newValue = thisWidget.parseValuea(value);
+    const newValue = thisWidget.parseValue(value);
 
     if (newValue !== thisWidget.correctValue && thisWidget.isValid(value) ){
       
@@ -31,11 +31,11 @@ class BaseWidget {
   setValue(value){
     const thisWidget = this;
 
-    thisWidget.correctValue = value;
+    thisWidget.value = value;
 
   }
 
-  parseValuea(value){
+  parseValue(value){
     return parseInt(value);
   }
 
@@ -45,7 +45,7 @@ class BaseWidget {
 
   renderValue(){
     const thisWidget = this;
-    thisWidget.dom.wrapper.innerHTHML = thisWidget.correctValue;
+    thisWidget.dom.wrapper.innerHTHML = thisWidget.value;
   }
   announce(){
     const thisWidget = this;
