@@ -9,6 +9,8 @@
   <link href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
   <link rel="stylesheet" href="vendor/range-slider.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -21,6 +23,7 @@
           <h2 class="logo__subtitle">the best homemade Italian food</h2>
         </div>
         <div class="main-nav">
+          <a href="#home">Home</a>
           <a href="#order">Order</a>
           <a href="#booking">Booking</a>
       </div>
@@ -62,6 +65,9 @@
   </header>
 
   <div id="pages">
+    <section id="home">
+      <div id="home-main" class="home-wrapper container"></div>
+    </section>
     <section id="order">
       <div id="product-list" class="product-list container"></div>
     </section>
@@ -69,6 +75,81 @@
       <div class="booking-wrapper container"></div>
     </section>
   </div>
+
+  <script id="template-home" type="text/x-handlebars-template">
+    <div class="home-page">
+      <div class="boxes-container">
+         <div class="mini-box">
+            <div class="contentInBox">
+               <a href="#order">ORDER ONLINE</a>
+            </div>
+            <div class = "hide">Delicious food and great people</div>
+         </div>
+         <div class="mini-box">
+            <div class="contentInBox">
+              <a href="#booking">BOOK A TABLE</a>
+            </div>
+            <div class = "hide">Simple Reservation!</div>
+         </div>
+      </div>
+      <div class = "big-box-container">
+         <div class="big-box">
+            <h2>OPENING HOURS:</h2>
+            <span>Tue-Sun, 12pm - 12am</span>  
+         </div>
+      </div>
+      <div class = "cell-container">
+         <div class="main-carousel" data-flickity='{ "cellAlign": "center", "contain": false, "draggable": true, "autoPlay": true }'>
+            <div class="class cal-row">
+               <div class="score-container">
+                  <div class="left-img">
+                     <a href="https://postimages.org/" target="_blank">
+                     <img src="https://i.postimg.cc/TPCWFmTM/pizza-3.jpg" alt="pizza-3"/>
+                     </a>
+                  </div>
+                  <div class="right-score">Ładnie Ładnie Ładnie</div>
+               </div>
+            </div>
+            <div class="class cal-row">
+               <div class="score-container">
+                  <div class="left-img">
+                     <a href="https://postimages.org/" target="_blank">
+                     <img src="https://i.postimg.cc/TPCWFmTM/pizza-3.jpg" alt="pizza-3"/>
+                     </a>
+                  </div>
+                  <div class="right-score">Brzydko, Brzydko.</div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="square-img-container">
+         <div class="row-img">
+            <div class="overlay">
+               <a href="https://postimages.org/" target="_blank" class="icon">
+               <i class="fa-solid fa-heart icon-img"></i>
+               <i class="fa-solid fa-share-nodes icon-img"></i>
+            </div>
+            </a>        
+         </div>
+         <div class="row-img">
+            <div class="overlay">
+               <a href="https://postimages.org/" target="_blank" class="icon">
+               <i class="fa-solid fa-heart icon-img"></i>
+               <i class="fa-solid fa-share-nodes icon-img"></i>
+            </div>
+            </a>        
+         </div>
+         <div class="row-img">
+            <div class="overlay">
+               <a href="https://postimages.org/" target="_blank" class="icon">
+               <i class="fa-solid fa-heart icon-img"></i>
+               <i class="fa-solid fa-share-nodes icon-img"></i>
+            </div>
+            </a>        
+         </div>
+      </div>
+    
+  </script>
 
   <script id="template-cart-product" type="text/x-handlebars-template">
     <li>
@@ -246,6 +327,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
   <script src="vendor/range-slider.min.js"></script>
+  <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
   <script src="js/app.js" type="module"></script>
 </body>
 </html>
