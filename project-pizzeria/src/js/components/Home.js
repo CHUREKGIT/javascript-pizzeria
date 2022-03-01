@@ -38,7 +38,7 @@ class Home {
     for (let page of thisHome.pages){
       page.classList.toggle(classNames.pages.active, page.id == pageId);
     }
-    // link active or remove link
+    // link active or remove links
     for (let link of thisHome.navLinks){
       link.classList.toggle(
         classNames.nav.active, 
