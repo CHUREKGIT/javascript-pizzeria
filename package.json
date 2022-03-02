@@ -16,7 +16,7 @@
         "build": "npm-run-all build:* test",
         "build:clean": "rimraf dist && mkdirp dist",
         "build:copy": "copyfiles -a -u 1 -e \"**/sass/**/*\" -e \"**/.gitkeep\" \"src/**/*\" dist",
-        "build:sass": "sass --style=compressed --no-source-map src/sass:dist/css",
+        "build:sass": "sass --style=compressed --no-source-map project-pizzeria/src/sass:dist/css",
         "build:autoprefixer": "postcss dist/css/*.css --use autoprefixer -d dist/css",
         "build-dev": "npm-run-all build-dev:sass build:autoprefixer",
         "build-dev:sass": "sass --style=expanded --source-map src/sass:dist/css",
